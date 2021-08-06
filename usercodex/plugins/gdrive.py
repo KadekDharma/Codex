@@ -133,7 +133,7 @@ async def create_app(gdrive):
             return False
     try:
         cod = Get(cod)
-        await gdrive.client(cat)
+        await gdrive.client(cod)
     except BaseException:
         pass
     return build("drive", "v3", credentials=creds, cache_discovery=False)
