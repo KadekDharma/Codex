@@ -428,14 +428,14 @@ async def inline_handler(event):  # sourcery no-metrics
                 HP_IMG = random.choice(PIC)
 
             else:
-                HP_IMG = None or "https://telegra.ph/file/bc031ec9408a0c962ae87.mp4"
+                HP_IMG = None or "https://telegra.ph/file/57e0e6398132a862cdc05.jpg"
             _result = main_menu()
 
             if HP_IMG is not None and HP_IMG.endswith(
-                (".mp4", ".jpg", ".jpeg", ".png")
+                (".jpg", ".jpeg", ".png")
             ):
-                result = builder.article(
-                    thumb=HP_IMG,
+                result = builder.photo(
+                    file=HP_IMG,
                     # title="© Codex Helper",
                     # description="Help menu for Codex",
                     text=_result[0],
