@@ -165,7 +165,9 @@ async def addmembers(event):
     for i in x:
         y += 1
         if y % 30 == 0:
-            await edit_or_reply(xedoc, f"`Has reached 30 members, wait until {900/60} min.`")
+            await edit_or_reply(
+                xedoc, f"`Has reached 30 members, wait until {900/60} min.`"
+            )
             await asyncio.sleep(900)
         try:
             user_to_add = InputPeerUser(i["user_id"], i["hash"])
