@@ -34,9 +34,9 @@ async def _(event):  # sourcery no-metrics
                 LOGS.warn(str(e))
         a_user = await event.get_user()
         chat = await event.get_chat()
-        me = await event.client.get_me()
+        me = await tgbot.get_me()
         title = chat.title or "this chat"
-        participants = await event.client.get_participants(chat)
+        participants = await tgbot.get_participants(chat)
         count = len(participants)
         mention = "<a href='tg://user?id={}'>{}</a>".format(
             a_user.id, a_user.first_name
@@ -119,13 +119,13 @@ async def save_welcome(event):
     msg_id = None
     if msg and msg.media and not string:
         if BOTLOG_CHATID:
-            await event.client.send_message(
+            await tgbot.send_message(
                 BOTLOG_CHATID,
                 f"#WELCOME_NOTE\
                 \nCHAT ID: {event.chat_id}\
                 \nThe following message is saved as the welcome note for the {event.chat.title}, Don't delete this message !!",
             )
-            msg_o = await event.client.forward_messages(
+            msg_o = await tgbot.forward_messages(
                 entity=BOTLOG_CHATID, messages=msg, from_peer=event.chat_id, silent=True
             )
             msg_id = msg_o.id
@@ -177,7 +177,7 @@ async def show_welcome(event):
     if not cws:
         return await edit_or_reply(event, "`No welcome message saved here.`")
     if cws.f_mesg_id:
-        msg_o = await event.client.get_messages(
+        msg_o = await tgbot.get_messages(
             entity=BOTLOG_CHATID, ids=int(cws.f_mesg_id)
         )
         await edit_or_reply(
