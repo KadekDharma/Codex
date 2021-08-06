@@ -428,11 +428,11 @@ async def inline_handler(event):  # sourcery no-metrics
                 HP_IMG = random.choice(PIC)
 
             else:
-                HP_IMG = None or "https://telegra.ph/file/da416e3a354247c6ba69d.mp4"
+                HP_IMG = None or "https://telegra.ph/file/bc031ec9408a0c962ae87.mp4"
             _result = main_menu()
 
             if HP_IMG is not None and HP_IMG.endswith(
-                (".jpg", ".jpeg", ".png", ".mp4")
+                (".mp4", ".jpg", ".jpeg", ".png")
             ):
                 result = builder.photo(
                     file=HP_IMG,
@@ -632,7 +632,7 @@ async def on_plug_in_callback_query_handler(event):
         CS_IMG = random.choice(PIC)
 
     else:
-        CS_IMG = None or "https://telegra.ph/file/f9004ed387e1e33aaae86.jpg"
+        CS_IMG = None or "https://telegra.ph/file/bc031ec9408a0c962ae87.mp4"
 
     await event.edit(
         "Copyright (C) 2021, Codex\nLicense: The 3-Clause BSD",
