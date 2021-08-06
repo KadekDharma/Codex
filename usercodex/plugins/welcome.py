@@ -4,6 +4,7 @@ from telethon import events
 from usercodex import codex
 from usercodex.core.logger import logging
 
+from ..core.session import tgbot
 from ..core.managers import edit_delete, edit_or_reply
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 from ..sql_helper.welcome_sql import (
@@ -18,7 +19,7 @@ plugin_category = "utils"
 LOGS = logging.getLogger(__name__)
 
 
-@codex.on(events.ChatAction)
+@tgbot.on(events.ChatAction)
 async def _(event):  # sourcery no-metrics
     cws = get_current_welcome_settings(event.chat_id)
     if (
@@ -28,7 +29,7 @@ async def _(event):  # sourcery no-metrics
     ):
         if gvarstatus("clean_welcome") is None:
             try:
-                await event.client.delete_messages(event.chat_id, cws.previous_welcome)
+                await tgbot.delete_messages(event.chat_id, cws.previous_welcome)
             except Exception as e:
                 LOGS.warn(str(e))
         a_user = await event.get_user()
@@ -54,7 +55,7 @@ async def _(event):  # sourcery no-metrics
         current_saved_welcome_message = None
         if cws:
             if cws.f_mesg_id:
-                msg_o = await event.client.get_messages(
+                msg_o = await tgbot.get_messages(
                     entity=BOTLOG_CHATID, ids=int(cws.f_mesg_id)
                 )
                 file_media = msg_o.media
