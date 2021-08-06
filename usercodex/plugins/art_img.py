@@ -127,9 +127,9 @@ async def cod(event):
     c_id = await reply_id(event)
     if not os.path.isdir("./temp"):
         os.mkdir("./temp")
-    output_file = os.path.join("./temp", "jisan.jpg")
+    output_file = os.path.join("./temp", "codex.jpg")
     output = await _codtools.media_to_pic(event, reply_message)
-    outputt = convert_toimage(output[1], filename="./temp/jisan.jpg")
+    outputt = convert_toimage(output[1], filename="./temp/codex.jpg")
     await cod.delete()
     await clippy(event.client, output_file, event.chat_id, c_id)
     if os.path.exists(output_file):
