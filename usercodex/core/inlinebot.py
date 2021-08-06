@@ -281,8 +281,7 @@ async def inline_handler(event):  # sourcery no-metrics
                     Button.inline("Stats", data="stats"),
                     Button.url("Repo", "https://github.com/Codex51/Codex"),
                 ),
-                (Button.inline("Open Main Menu", data="mainmenu"),
-                )
+                (Button.inline("Open Main Menu", data="mainmenu"),),
             ]
             ALIVE_PIC = gvarstatus("ALIVE_PIC")
             IALIVE_PIC = gvarstatus("IALIVE_PIC")
