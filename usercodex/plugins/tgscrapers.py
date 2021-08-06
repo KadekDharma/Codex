@@ -31,7 +31,7 @@ from ..core.managers import edit_delete, edit_or_reply
 plugin_category = "utils"
 
 
-async def get_chatinfo(event):
+async def get_chat_info(event):
     chat = event.pattern_match.group(1)
     chat_info = None
     if chat:
@@ -76,6 +76,7 @@ async def get_chatinfo(event):
         "usage": "{tr}scrpall <Username Group>",
         "example": "{tr}scrpall @codexsupportgroup",
     },
+    groups_only=True,
 )
 async def get_users(event):
     sender = await event.get_sender()
@@ -84,7 +85,7 @@ async def get_users(event):
         cod = await edit_or_reply(event, "`Processing...`")
     else:
         cod = await edit_or_reply(event, "`Processing...`")
-    xedoc = await get_chatinfo(event)
+    xedoc = await get_chat_info(event)
     chat = await event.get_chat()
     if event.is_private:
         return await edit_delete(
@@ -117,13 +118,14 @@ async def get_users(event):
 
 
 @codex.cod_cmd(
-    pattern="getmemb$",
-    command=("getmemb", plugin_category),
+    pattern="getmember$",
+    command=("getmember", plugin_category),
     info={
         "header": "Collect members data from the group.",
         "description": "This plugin is done before using the add member plugin.",
-        "usage": "{tr}getmemb",
+        "usage": "{tr}getmember",
     },
+    groups_only=True,
 )
 async def getmembers(event):
     channel = event.chat_id
@@ -140,19 +142,21 @@ async def getmembers(event):
 
 
 @codex.cod_cmd(
-    pattern="addmemb$",
-    command=("addmemb", plugin_category),
+    pattern="addmember$",
+    command=("addmember", plugin_category),
     info={
         "header": "Add your group members. (there's a limit)",
         "description": "This plugin is done after using the get member plugin.",
-        "usage": "{tr}addmemb",
+        "usage": "{tr}addmember",
     },
+   groups_only=True,
 )
 async def addmembers(event):
     xedoc = await edit_or_reply(
         event, "`The process of adding members, starting from 0`"
     )
     channel = await event.get_chat()
+    user_to_add = None
     saint = event.client
     x = []
     with open("members.csv", encoding="UTF-8") as f:
@@ -166,14 +170,20 @@ async def addmembers(event):
         y += 1
         if y % 30 == 0:
             await edit_or_reply(
-                xedoc, f"`Has reached 30 members, wait until {900/60} min.`"
+                event, f"`Has reached 30 members, wait until {200/60} min.`"
             )
-            await asyncio.sleep(900)
+            await asyncio.sleep(200)
+
+        if user_to_add is None:
+            try:
+                user_to_add = InputPeerUser(i["user_id"], i["hash"])
+            except BaseException:
+                pass
+
         try:
-            user_to_add = InputPeerUser(i["user_id"], i["hash"])
-            await saint(InviteToChannelRequest(channel, [user_to_add]))
+            await saint(functions.channels.InviteToChannelRequest(channel=channel, users=[user_to_add]))
             await asyncio.sleep(random.randrange(5, 7))
-            await edit_or_reply(xedoc, f"`Prosess of adding {y} Members...`")
+            await edit_or_reply(event, f"`Prosess of adding {y} Members...`")
         except TypeError:
             y -= 1
             continue
