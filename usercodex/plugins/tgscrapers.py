@@ -70,11 +70,11 @@ async def get_chatinfo(event):
 
 @codex.cod_cmd(
     pattern="scrpall ([\s\S]*)",
-    command=("scrapall", plugin_category),
+    command=("scrpall", plugin_category),
     info={
         "header": "Dredge up members from other groups by using the group username",
         "usage": "{tr}scrpall <Username Group>",
-        "example": "{tr}scrpall @codexgroupsupport",
+        "example": "{tr}scrpall @codexsupportgroup",
     },
 )
 async def get_users(event):
@@ -126,17 +126,17 @@ async def get_users(event):
     },
 )
 async def getmembers(event):
-    chat = event.chat_id
-    await event.edit("`Please wait...`")
-    event.client
-    members = await event.client.get_participants(chat, aggressive=True)
+    channel = event.chat_id
+    xedoc = await edit_or_reply(event, "`Please wait...`")
+    saint = event.client
+    members = await saint.get_participants(channel, aggressive=True)
 
     with open("members.csv", "w", encoding="UTF-8") as f:
         writer = csv.writer(f, delimiter=",", lineterminator="\n")
         writer.writerow(["user_id", "hash"])
         for member in members:
             writer.writerow([member.id, member.access_hash])
-    await event.edit("`Successfully collect data members.`")
+    await edit_or_reply(xedoc, "`Successfully collect data members.`")
 
 
 @codex.cod_cmd(
@@ -150,37 +150,37 @@ async def getmembers(event):
 )
 async def addmembers(event):
     xedoc = await edit_or_reply(
-        event, "`The process of adding members, starting from 0 <zero>`"
+        event, "`The process of adding members, starting from 0`"
     )
-    chat = await event.get_chat()
-    event.client
-    users = []
+    channel = await event.get_chat()
+    saint = event.client
+    x = []
     with open("members.csv", encoding="UTF-8") as f:
         rows = csv.reader(f, delimiter=",", lineterminator="\n")
         next(rows, None)
         for row in rows:
-            user = {"id": int(row[0]), "hash": int(row[1])}
-            users.append(user)
-    n = 0
-    for user in users:
-        n += 1
-        if n % 30 == 0:
-            await xedoc.edit(f"`Has reached 30 members, wait until {900/60} min.`")
+            i = {"user_id": int(row[0]), "hash": int(row[1])}
+            x.append(i)
+    y = 0
+    for i in x:
+        y += 1
+        if y % 30 == 0:
+            await edit_or_reply(xedoc, f"`Has reached 30 members, wait until {900/60} min.`")
             await asyncio.sleep(900)
         try:
-            userin = InputPeerUser(user["id"], user["hash"])
-            await event.client(InviteToChannelRequest(chat, [userin]))
+            user_to_add = InputPeerUser(i["user_id"], i["hash"])
+            await saint(InviteToChannelRequest(channel, [user_to_add]))
             await asyncio.sleep(random.randrange(5, 7))
-            await xedoc.edit(f"`Prosess of adding {n} Members...`")
+            await edit_or_reply(xedoc, f"`Prosess of adding {y} Members...`")
         except TypeError:
-            n -= 1
+            y -= 1
             continue
         except UserAlreadyParticipantError:
-            n -= 1
+            y -= 1
             continue
         except UserPrivacyRestrictedError:
-            n -= 1
+            y -= 1
             continue
         except UserNotMutualContactError:
-            n -= 1
+            y -= 1
             continue
