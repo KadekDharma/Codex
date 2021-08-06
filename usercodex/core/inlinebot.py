@@ -430,7 +430,9 @@ async def inline_handler(event):  # sourcery no-metrics
                 HP_IMG = None or "https://telegra.ph/file/da416e3a354247c6ba69d.mp4"
             _result = main_menu()
 
-            if HP_IMG is not None and HP_IMG.endswith((".jpg", ".jpeg", ".png", ".mp4")):
+            if HP_IMG is not None and HP_IMG.endswith(
+                (".jpg", ".jpeg", ".png", ".mp4")
+            ):
                 result = builder.photo(
                     file=HP_IMG,
                     # title="© Codex Helper",
