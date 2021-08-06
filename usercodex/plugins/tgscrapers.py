@@ -20,7 +20,7 @@ from telethon.errors.rpcerrorlist import (
     UserPrivacyRestrictedError,
 )
 from telethon.tl import functions
-from telethon.tl.functions.channels import GetFullChannelRequest, InviteToChannelRequest
+from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.functions.messages import GetFullChatRequest
 from telethon.tl.types import InputPeerUser
 
@@ -149,7 +149,7 @@ async def getmembers(event):
         "description": "This plugin is done after using the get member plugin.",
         "usage": "{tr}addmember",
     },
-   groups_only=True,
+    groups_only=True,
 )
 async def addmembers(event):
     xedoc = await edit_or_reply(
@@ -181,7 +181,11 @@ async def addmembers(event):
                 pass
 
         try:
-            await saint(functions.channels.InviteToChannelRequest(channel=channel, users=[user_to_add]))
+            await saint(
+                functions.channels.InviteToChannelRequest(
+                    channel=channel, users=[user_to_add]
+                )
+            )
             await asyncio.sleep(random.randrange(5, 7))
             await edit_or_reply(event, f"`Prosess of adding {y} Members...`")
         except TypeError:
