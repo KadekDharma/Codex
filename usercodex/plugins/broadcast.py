@@ -206,7 +206,7 @@ async def codbroadcast_send(event):
         )
     keyword = codinput_str.lower()
     no_of_chats = sql.num_broadcastlist_chat(keyword)
-    group_ = Get(cat)
+    group_ = Get(cod)
     if no_of_chats == 0:
         return await edit_delete(
             event,
