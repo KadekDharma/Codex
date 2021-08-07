@@ -86,7 +86,7 @@
     <p align="left">
        <i> No Using API_ID & API_HASH </i>
        <p> 👇🏻 Click </p>
-       <a href="https://replit.com/@KENZO404/Lynx-String-Session#main.py"><img src="https://img.shields.io/badge/generate_string-via_replit-white?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
+       <a href="https://replit.com/@KENZO404/Codex-strGen?v=1"><img src="https://img.shields.io/badge/generate_string-via_replit-white?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
     </p>
   </details><br>
 
