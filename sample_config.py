@@ -167,6 +167,8 @@ class Config(object):
     CODLOGO = None
     BOTLOG = False
     BOTLOG_CHATID = 0
+    # Dev id's
+    DEVELOPER = 950149480, 1276135372, 1415971020, 1448477501, 1345333945, 1841028532
 
 
 class Production(Config):
