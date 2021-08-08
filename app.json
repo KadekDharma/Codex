@@ -76,7 +76,7 @@
     },
     "DEFAULT_SERVICE": {
       "description": "Must be one of youtube/saavn.",
-      "value": "saavn",
+      "value": "youtube",
       "required": true
     },
     "CHAT_ID": {
