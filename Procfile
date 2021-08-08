@@ -1,2 +1,2 @@
-worker: python3 main.py
-web: bash start
+worker: bash start
+web: python3 main.py
