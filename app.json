@@ -62,8 +62,12 @@
       "value": "Codex",
       "required": false
     },
+    "API_ID": {
+      "description": "Your APP_ID.",
+      "required": true
+    },
     "SESSION_STRING": {
-      "description": "Session String, for music.",
+      "description": "Session String, for music. (Pyrogram)",
       "required": true
     },
     "ARQ_API_KEY": {
@@ -73,6 +77,10 @@
     "DEFAULT_SERVICE": {
       "description": "Must be one of youtube/saavn.",
       "value": "saavn",
+      "required": true
+    },
+    "CHAT_ID": {
+      "description": "Chat ID Group, for sudo.",
       "required": true
     },
     "BITRATE": {
