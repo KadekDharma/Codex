@@ -79,6 +79,7 @@
       "description": "Must be 512/320.",
       "value": "512",
       "required": true
+    }
   },
   "addons": [{
     "plan": "heroku-postgresql",
