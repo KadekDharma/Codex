@@ -107,7 +107,7 @@ _set_bot () {
            ╚██████╔╝██████╔╝███████╗██║░░██║██████╦╝╚█████╔╝░░░██║░░░
            ░╚═════╝░╚═════╝░╚══════╝╚═╝░░╚═╝╚═════╝░░╚════╝░░░░╚═╝░░░
     "
-    python3 -m usercodex & python3 main.py
+    python3 -m usercodex && python3 main.py
 }
 
 _set_bot
