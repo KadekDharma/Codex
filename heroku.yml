@@ -3,3 +3,6 @@ build:
       worker: Dockerfile
 run:
    worker: python3 -m usercodex
+
+run:
+   worker: python3 main.py
