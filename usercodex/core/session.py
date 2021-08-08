@@ -1,6 +1,5 @@
 import sys
 
-from pytgcalls import GroupCallFactory
 from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 from telethon.sessions import StringSession
 
@@ -42,8 +41,3 @@ codex.tgbot = tgbot = CodexClient(
     auto_reconnect=True,
     connection_retries=None,
 ).start(bot_token=Config.TG_BOT_TOKEN)
-
-
-group_call_factory = GroupCallFactory(
-    codex, GroupCallFactory.MTPROTO_CLIENT_TYPE.TELETHON
-)

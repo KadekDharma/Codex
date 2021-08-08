@@ -104,3 +104,26 @@ config.py
 
 # mypy
 .mypy_cache/
+
+# -------------------------
+# vim
+unknown_errors.txt
+[._]*.sw[a-p]
+*.webm
+*.mp3
+*.mp4
+*.webp
+*.weba
+*.part
+*.ytdl
+final.png
+background.png
+temp.png
+# python
+/venv/
+# tgbot
+/.py
+/*.session
+/*.session-journal
+*.raw
+group_call.log
