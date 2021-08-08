@@ -1,2 +1,2 @@
 worker: bash start
-web: python3 main.py
+web: python3 main.py $PORT
