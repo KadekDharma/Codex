@@ -1,5 +1,5 @@
 # Using python debian
-FROM python:3.9.6-buster
+FROM ubuntu:20.04
 
 # https://shouldiblamecaching.com/
 ENV PIP_NO_CACHE_DIR 1
@@ -14,12 +14,17 @@ RUN apt-get -qq install -y \
     curl \
     wget \
     ffmpeg \
-    opus-tools
+    python3 \
+    python3-virtualenv
 
 # Git clone repository + root 
 RUN git clone https://github.com/Codex51/Codex.git /usr/src/usercodex
 WORKDIR /usr/src/usercodex
 ENV PATH="/usr/src/usercodex/bin:$PATH"
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install requirements
 RUN python3 -m pip install -U pip setuptools wheel && \
