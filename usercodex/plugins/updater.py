@@ -12,7 +12,7 @@ from usercodex import HEROKU_APP, UPSTREAM_REPO_URL, codex
 
 from ..Config import Config
 from ..core.logger import logging
-from ..core.managers import edit_or_reply
+from ..core.managers import edit_or_reply, edit_delete
 from ..sql_helper.global_collection import (
     add_to_collectionlist,
     del_keyword_collectionlist,
@@ -165,7 +165,7 @@ async def push(event, repo, ups_rem, ac_br, txt):
         return repo.__del__()
     build_status = heroku_app.builds(order_by="created_at", sort="desc")[0]
     if build_status.status == "failed":
-        return await edit_Delete(
+        return await edit_delete(
             event, "`Build failed! ❌\n" "Cancelled or there were some errors...`"
         )
     try:
