@@ -1,8 +1,6 @@
 # Using python debian
-FROM python:3.9.6-slim
+FROM python:3.9.6-buster
 
-# https://shouldiblamecaching.com/
-ENV PIP_NO_CACHE_DIR 1
 # http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
 # we don't have an interactive xTerm
@@ -22,7 +20,7 @@ WORKDIR /usr/src/usercodex
 ENV PATH="/usr/src/usercodex/bin:$PATH"
 
 # Install requirements
-RUN pip3 install --user --no-cache-dir -U -r requirements.txt
+RUN pip3 install -U -r requirements.txt
 
 RUN chmod a+x start
 CMD ["./start"]
