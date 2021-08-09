@@ -12,7 +12,7 @@ from usercodex import HEROKU_APP, UPSTREAM_REPO_URL, codex
 
 from ..Config import Config
 from ..core.logger import logging
-from ..core.managers import edit_or_reply, edit_delete
+from ..core.managers import edit_delete, edit_or_reply
 from ..sql_helper.global_collection import (
     add_to_collectionlist,
     del_keyword_collectionlist,
