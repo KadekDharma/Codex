@@ -25,4 +25,5 @@ ENV PATH="/usr/src/usercodex/bin:$PATH"
 RUN python3 -m pip install -U pip setuptools wheel && \
     pip3 install --no-cache-dir -U -r requirements.txt
 
+RUN chmod a+x start
 CMD ["./start"]
