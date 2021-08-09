@@ -1,32 +1,28 @@
-# Using python slim-buster
-FROM codex51/codex:buster
+# Using python debian
+FROM python:3.9.6-buster
+
+# https://shouldiblamecaching.com/
+ENV PIP_NO_CACHE_DIR 1
+# http://bugs.python.org/issue19846
+ENV LANG C.UTF-8
+# we don't have an interactive xTerm
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get -qq update -y && apt-get -qq upgrade -y
+RUN apt-get -qq install -y \
+    git \
+    curl \
+    wget \
+    ffmpeg \
+    opus-tools
 
 # Git clone repository + root 
-RUN git clone https://github.com/Codex51/Codex.git /root/usercodex
-#working directory 
-WORKDIR /root/usercodex
+RUN git clone https://github.com/Codex51/Codex.git /usr/src/usercodex
+WORKDIR /usr/src/usercodex
+ENV PATH="/usr/src/usercodex/bin:$PATH"
 
 # Install requirements
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN python3 -m pip install -U pip setuptools wheel && \
+    pip3 install --no-cache-dir -U -r requirements.txt
 
-ENV PATH="/home/usercodex/bin:$PATH"
-
-CMD ["python3","-m","usercodex"]
-
-#Python based docker image
-FROM python:3.9.5-buster
-
-RUN apt-get update && apt-get upgrade -y
-
-#Installing Requirements
-RUN apt-get install -y ffmpeg python3-pip opus-tools
-
-#Updating pip
-RUN python3.9 -m pip install -U pip
-
-COPY . .
-
-RUN python3.9 -m pip install -U -r requirements.txt
-
-#Running VCBot
-CMD ["python3.9","main.py"]
+CMD ["./start"]
