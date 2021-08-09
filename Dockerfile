@@ -16,6 +16,7 @@ RUN apt-get -qq install -y \
     ffmpeg \
     opus-tools \
     python3 \
+    python3-pip \
     python3-virtualenv
 
 # Git clone repository + root 
@@ -28,7 +29,8 @@ RUN python3 -m virtualenv --python=/usr/bin/python3 $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install requirements
-RUN pip3 install --no-cache-dir -U -r requirements.txt
+RUN python3 -m pip install -U pip setuptools wheel && \
+    pip3 install --no-cache-dir -U -r requirements.txt
 
 RUN chmod a+x start
 CMD ["./start"]
