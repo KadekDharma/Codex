@@ -84,11 +84,31 @@
   <details>
     <br><summary><b> Get STRING_SESSION </b></summary>
     <p align="left">
-       <i> No Using API_ID & API_HASH </i>
+       <i> (Telethon) No Using API_ID & API_HASH </i>
        <p> 👇🏻 Click </p>
        <a href="https://replit.com/@KENZO404/Codex-strGen?v=1"><img src="https://img.shields.io/badge/generate_string-via_replit-white?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
     </p>
+    <br>
+    <p align="left">
+       <i> (Pyrogram & Telethon) Using API_ID & API_HASH </i>
+       <p> 👇🏻 Click </p>
+       <a href="https://replit.com/@KENZO404/Codex-Session#mainstring.py"><img src="https://img.shields.io/badge/run-string__session.py-blue?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
+    </p>
+    <br>
+       <p align="left">
+          <i> Get String Using Termux _> </i><br>
+          <strong> For the first time, please copy below first. </strong><br>
+          <br><code> pkg update -y && pkg upgrade && pkg install wget python </code><br>
+          <br><br><i> Telethon & Pyrogram (P for Pyrogram and T for Telethon) </i><br>
+          <br><code> pip install telethon && wget https://raw.githubusercontent.com/Codex51/Codex/master/mainstring.py && python mainstring.py </code>
+        </p>
   </details><br>
+
+  <details><summary><b> Get ARQ_API_KEY </b></summary> <br>
+    <p align="left">
+       <p> Please go to telegram, and search for <strong>@ARQRobot</strong> or click 👉🏼 https://t.me/ARQRobot , First of all, click start and select get_key, then give it any name, done. </p>
+    </p>
+    </details><br>
 
   <details><summary><b> Get TG_BOT_TOKEN </b></summary> <br>
     <p align="left">
