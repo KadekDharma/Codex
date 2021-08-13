@@ -26,7 +26,7 @@ async def gcast(event):
     if not xx:
         return await edit_or_reply(xx, "`Please Give A Message.`")
     tt = event.text
-    msg = tt[7:]
+    msg = tt[8:]
     kk = await edit_or_reply(event, "`Sending Group Messages Globally... 📢`")
     er = 0
     done = 0
@@ -58,7 +58,7 @@ async def gucast(event):
     if not xx:
         return await edit_or_reply(xx, "`Please Give A Message`")
     tt = event.text
-    msg = tt[7:]
+    msg = tt[8:]
     kk = await edit_or_reply(event, "`Sending Pivate Messages Globally... 📢`")
     er = 0
     done = 0
