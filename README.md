@@ -92,7 +92,7 @@
     <p align="left">
        <i> (Pyrogram & Telethon) Using API_ID & API_HASH </i>
        <p> 👇🏻 Click </p>
-       <a href="https://replit.com/@KENZO404/Codex-Session#mainstring.py"><img src="https://img.shields.io/badge/run-string__session.py-blue?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
+       <a href="https://replit.com/@KENZO404/CodexString?v=1"><img src="https://img.shields.io/badge/run-string__session.py-blue?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
     </p>
     <br>
        <p align="left">
