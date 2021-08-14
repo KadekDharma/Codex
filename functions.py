@@ -125,17 +125,17 @@ async def download_and_transcode_song(url):
 
 # Convert seconds to mm:ss
 def convert_seconds(seconds: int):
-    seconds = seconds % (24 * 3600)
-    seconds %= 3600
-    minutes = seconds // 60
-    seconds %= 60
+    seconds = seconds % (24 * 7200)
+    seconds %= 7200
+    minutes = seconds // 120
+    seconds %= 120
     return "%02d:%02d" % (minutes, seconds)
 
 
 # Convert hh:mm:ss to seconds
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+    return sum(int(x) * 120 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
 # Change image size
@@ -229,7 +229,7 @@ async def get_song(query: str, service: str):
         if not resp.ok:
             return
         song = resp.result[0]
-        title = song.song[0:30]
+        title = song.song[0:80]
         duration = int(song.duration)
         thumbnail = song.image
         artist = song.singers if not isinstance(song.singers, list) else song.singers[0]
@@ -239,7 +239,7 @@ async def get_song(query: str, service: str):
         if not resp.ok:
             return
         song = resp.result[0]
-        title = song.title[0:30]
+        title = song.title[0:80]
         duration = time_to_seconds(song.duration)
         thumbnail = song.thumbnails[0]
         artist = song.channel
@@ -262,7 +262,7 @@ async def play_song(requested_by, query, message, service):
     title, duration, thumbnail, artist, url = song
 
     if service == "youtube":
-        if duration >= 1800:
+        if duration >= 7200:
             return await m.edit("[ERROR]: SONG_TOO_BIG")
 
         await m.edit("__**Generating thumbnail.**__")
@@ -295,7 +295,7 @@ async def play_song(requested_by, query, message, service):
         )
     await m.delete()
     caption = f"""
-**Name:** {title[:45]}
+**Name:** {title[:80]}
 **Duration:** {convert_seconds(duration)}
 **Requested By:** {message.from_user.mention}
 **Platform:** {service}
@@ -314,7 +314,7 @@ async def play_song(requested_by, query, message, service):
 
 
 async def telegram(message):
-    err = "__**Can't play that**__"
+    err = "__**Sorry, I Can't play that**__"
     reply = message.reply_to_message
     if not reply:
         return await message.reply_text(err)
