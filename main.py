@@ -107,6 +107,8 @@ async def volume_bot(_, message):
     except ValueError:
         return await message.reply_text(usage)
     await message.reply_text(f"🔊 **Volume Set To** `{volume}`")
+    await message.reply_text(f"Press👉 /repeat if you've changed the volume.")
+    await message.delete()
 
 
 @app.on_message(filters.command("pause") & ~filters.private & filters.chat(CHAT_ID))
@@ -147,13 +149,20 @@ async def skip_func(_, message):
     await message.delete()
 
 
+@app.on_message(filters.command("repeat") & ~filters.private & filters.chat(CHAT_ID))
+async def repeeeat(_, message):
+    if "call" in db:
+        await db["call"].reconnect()
+    await message.reply_text("🔁 __**Repeat The Music...**__")
+    await message.delete()
+
+
 @app.on_message(filters.command("play") & ~filters.private & filters.chat(CHAT_ID))
 async def queuer(_, message):
     global running
     try:
         usage = """
-**Usage:**
-
+**USAGE :**
 `/play Skinnyfabs Ghost`
 `/play youtube it's you`
 `/play saavn how deep is your love`
