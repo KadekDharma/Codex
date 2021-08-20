@@ -295,8 +295,11 @@ async def play_song(requested_by, query, message, service):
         )
     await m.delete()
     caption = f"""
-**Name:** {title[:80]}
-**Duration:** {convert_seconds(duration)}
+{title[:80]}
+00:00 ⬤─────────────── {convert_seconds(duration)}
+   ⇆   ㅤ ||     ◁   ㅤ❚❚ㅤ   ▷     ||ㅤ    ↻
+
+
 **Requested By:** {message.from_user.mention}
 **Platform:** {service}
 """

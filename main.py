@@ -106,8 +106,9 @@ async def volume_bot(_, message):
         await vc.set_my_volume(volume=volume)
     except ValueError:
         return await message.reply_text(usage)
-    await message.reply_text(f"🔊 **Volume Set To** `{volume}`")
-    await message.reply_text(f"Press👉 /repeat if you've changed the volume.")
+    await message.reply_text(
+        f"🔊 **Volume Set To** `{volume}`\nPress👉 /repeat if you've changed the volume."
+    )
     await message.delete()
 
 
@@ -143,7 +144,8 @@ async def skip_func(_, message):
     queue = db["queue"]
     if queue.empty() and ("playlist" not in db or not db["playlist"]):
         await message.reply_text("🗑️ __**Queue Is Empty Dude, Just Like Your Life.**__")
-        return await message.delete()
+        await message.delete()
+        return
     db["skipped"] = True
     await message.reply_text("⏩ __**Skipped !!**__")
     await message.delete()
@@ -151,9 +153,11 @@ async def skip_func(_, message):
 
 @app.on_message(filters.command("repeat") & ~filters.private & filters.chat(CHAT_ID))
 async def repeeeat(_, message):
+    if "call" not in db:
+        await message.reply_text("**Voice Call isn't started**")
+        return
     if "call" in db:
         await db["call"].reconnect()
-    await message.reply_text("🔁 __**Repeat The Music...**__")
     await message.delete()
 
 
