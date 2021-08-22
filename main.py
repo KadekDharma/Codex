@@ -35,12 +35,12 @@ PLAY_LOCK = asyncio.Lock()
 OUTGOING_AUDIO_BITRATE_KBIT = BITRATE
 
 
-@app.on_message(filters.command("help") & ~filters.private)
+@app.on_message(filters.command("help") & ~filters.private & filters.chat(CHAT_ID))
 async def help(_, message):
     await message.reply_text(HELP_TEXT, quote=False)
 
 
-@app.on_message(filters.command("repo") & ~filters.private)
+@app.on_message(filters.command("repo") & ~filters.private & filters.chat(CHAT_ID))
 async def repo(_, message):
     await message.reply_text(REPO_TEXT, quote=False)
 
@@ -48,7 +48,9 @@ async def repo(_, message):
 @app.on_message(filters.command("joinvc") & ~filters.private & filters.chat(CHAT_ID))
 async def joinvc(_, message, manual=False):
     if "call" in db:
+        asyncio.sleep(0.7)
         return await message.reply_text("__**I'ma already in the voice chat.**__")
+    asyncio.sleep(0.5)
     await message.delete()
     os.popen(f"cp etc/sample_input.raw {PLAYOUT_FILE}")
     vc = pytgcalls.GroupCallFactory(
@@ -74,10 +76,12 @@ async def joinvc(_, message, manual=False):
             return await message.reply_text(
                 "Make me admin with message delete and vc manage permission"
             )
+    asyncio.sleep(1)
     await message.reply_text(
         "✅ __**Joined The Voice Chat.**__ \n\n📃**Note:** __If you can't hear anything,"
         + " Send /leavevc and then /joinvc again.__"
     )
+    asyncio.sleep(0.5)
     await message.delete()
 
 
@@ -87,7 +91,9 @@ async def leavevc(_, message):
         await db["call"].leave_current_group_call()
         await db["call"].stop()
         del db["call"]
+    asyncio.sleep(0.5)
     await message.reply_text("⏬ __**Left The Voice Chat**__")
+    asyncio.sleep(0.5)
     await message.delete()
 
 
@@ -106,9 +112,11 @@ async def volume_bot(_, message):
         await vc.set_my_volume(volume=volume)
     except ValueError:
         return await message.reply_text(usage)
+    asyncio.sleep(0.5)
     await message.reply_text(
-        f"🔊 **Volume Set To** `{volume}`\nPress👉 /repeat if you've changed the volume."
+        f"🔊 **Volume set to** `{volume}`\nPress👉 /repeat if you've changed the volume."
     )
+    asyncio.sleep(0.5)
     await message.delete()
 
 
@@ -144,10 +152,12 @@ async def skip_func(_, message):
     queue = db["queue"]
     if queue.empty() and ("playlist" not in db or not db["playlist"]):
         await message.reply_text("🗑️ __**Queue Is Empty Dude, Just Like Your Life.**__")
-        await message.delete()
-        return
+        asyncio.sleep(0.7)
+        return await message.delete()
     db["skipped"] = True
+    asyncio.sleep(1)
     await message.reply_text("⏩ __**Skipped !!**__")
+    asyncio.sleep(0.7)
     await message.delete()
 
 
@@ -158,6 +168,9 @@ async def repeeeat(_, message):
         return
     if "call" in db:
         await db["call"].reconnect()
+        asyncio.sleep(1)
+        await message.reply_text("🔁 __**Repeat The Music...**__")
+    asyncio.sleep(0.7)
     await message.delete()
 
 
@@ -173,7 +186,7 @@ async def queuer(_, message):
 `/play Reply On Audio File (Telegram)`"""
 
         async with PLAY_LOCK:
-            if len(message.command) < 2 and not message.reply_to_message:
+            if len(message.command) < 1 and not message.reply_to_message:
                 return await message.reply_text(usage)
             await message.delete()
             if "call" not in db:
@@ -190,7 +203,7 @@ async def queuer(_, message):
                 await message.delete()
             else:
                 text = message.text.split("\n")[0]
-                text = text.split(None, 2)[1:]
+                text = text.split(None, 1)[1:]
                 service = text[0].lower()
                 services = ["youtube", "saavn"]
                 if service in services:
@@ -202,11 +215,13 @@ async def queuer(_, message):
             if "queue" not in db:
                 db["queue"] = asyncio.Queue()
             if not db["queue"].empty() or db.get("running"):
+                asyncio.sleep(1)
                 await message.reply_text(
                     f"⏭️ __**Added To Queue.__**\n\n**Song Name:** `{song_name}`\n**Requested By:** {message.from_user.first_name}\n**Platform:** `{service}`"
                 )
+                asyncio.sleep(0.7)
                 await message.delete()
-
+            asyncio.sleep(1)
             await db["queue"].put(
                 {
                     "service": service or telegram,
