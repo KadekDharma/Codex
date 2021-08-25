@@ -36,12 +36,12 @@ async def gcast(event):
     if xedoc == 0:
         return await edit_delete(kk, "`you are not even admin of atleast one group `")
 
-    async for x in range(xedoc) and bot.iter_dialogs():
+    async for x in range(xedoc) and client.iter_dialogs():
         if x.is_group and not x.is_user:
             chat = x.id
             try:
                 done += 1
-                await bot.send_message(cod[x], chat, msg)
+                await client.send_message(cod[x], chat, msg)
             except BaseException:
                 er += 1
     await kk.edit(
