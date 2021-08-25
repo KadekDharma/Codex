@@ -6,7 +6,8 @@
 
 from usercodex import codex
 
-from ..core.managers import edit_or_reply
+from ..core.managers import edit_delete, edit_or_reply
+from . import admin_groups
 
 plugin_category = "tools"
 
@@ -28,14 +29,19 @@ async def gcast(event):
     tt = event.text
     msg = tt[8:]
     kk = await edit_or_reply(event, "`Sending Group Messages Globally... 📢`")
+    cod = await admin_groups(event.client)
     er = 0
     done = 0
-    async for x in bot.iter_dialogs():
+    xedoc = len(cod)
+    if xedoc == 0:
+        return await edit_delete(kk, "`you are not even admin of atleast one group `")
+
+    async for x in range(xedoc) and bot.iter_dialogs():
         if x.is_group and not x.is_user:
             chat = x.id
             try:
                 done += 1
-                await bot.send_message(chat, msg)
+                await bot.send_message(cod[i], chat, msg)
             except BaseException:
                 er += 1
     await kk.edit(
