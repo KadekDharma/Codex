@@ -41,7 +41,7 @@ async def gcast(event):
             chat = x.id
             try:
                 done += 1
-                await bot.send_message(cod[i], chat, msg)
+                await bot.send_message(cod[x], chat, msg)
             except BaseException:
                 er += 1
     await kk.edit(
