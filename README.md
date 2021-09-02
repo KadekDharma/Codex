@@ -101,7 +101,7 @@
           <strong> For the first time, please copy below first. </strong><br>
           <br><code> pkg update -y && pkg upgrade && pkg install wget python </code><br>
           <br><br><i> Telethon & Pyrogram (P for Pyrogram and T for Telethon) </i><br>
-          <br><code> pip install telethon && wget https://raw.githubusercontent.com/Codex51/Codex/master/mainstring.py && python mainstring.py </code>
+          <br><code> pip install wheel && pip install telethon && pip install pyrogram && wget https://raw.githubusercontent.com/Codex51/Codex/master/mainstring.py && python mainstring.py </code>
         </p>
   </details><br>
 
