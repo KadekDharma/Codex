@@ -186,12 +186,17 @@ async def queuer(_, message):
 `/play Reply On Audio File (Telegram)`"""
 
         async with PLAY_LOCK:
-            if len(message.command) < 1 and not message.reply_to_message:
+            if (
+                len(message.command) < 1
+                and not message.reply_to_message
+            ):
                 return await message.reply_text(usage)
-            await message.delete()
+
             if "call" not in db:
-                return await message.reply_text("**Fkg Stupid, Use /joinvc First!**")
-            await message.delete()
+                return await message.reply_text(
+                    "**Fkg Stupid, Use /joinvc First!**"
+                )
+
             if message.reply_to_message:
                 if message.reply_to_message.audio:
                     service = "telegram"
@@ -200,7 +205,7 @@ async def queuer(_, message):
                     return await message.reply_text(
                         "**LOL, Reply to a telegram audio file**"
                     )
-                await message.delete()
+
             else:
                 text = message.text.split("\n")[0]
                 text = text.split(None, 1)[1:]
@@ -211,16 +216,15 @@ async def queuer(_, message):
                 else:
                     service = get_default_service()
                     song_name = " ".join(text)
+                if "http" in song_name or ".com" in song_name:
+                    return await message.reply("Links aren't supported.")
+
             requested_by = message.from_user.first_name
             if "queue" not in db:
                 db["queue"] = asyncio.Queue()
             if not db["queue"].empty() or db.get("running"):
                 asyncio.sleep(1)
-                await message.reply_text(
-                    f"⏭️ __**Added To Queue.__**\n\n**Song Name:** `{song_name}`\n**Requested By:** {message.from_user.first_name}\n**Platform:** `{service}`"
-                )
-                asyncio.sleep(0.7)
-                await message.delete()
+                await message.reply_text(f"⏭️ __**Added To Queue.__**\n\n**Song Name:** `{song_name}`\n**Requested By:** {message.from_user.first_name}\n**Platform:** `{service}`")
             asyncio.sleep(1)
             await db["queue"].put(
                 {
