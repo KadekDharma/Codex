@@ -7,7 +7,7 @@ if HEROKU:
     from dotenv import load_dotenv
 
     load_dotenv()  # take environment variables from .env.
-    API_ID = int(environ["API_ID"])
+    APP_ID = int(environ["APP_ID"])
     API_HASH = environ["API_HASH"]
     SESSION_STRING = environ["SESSION_STRING"]  # Check Readme for session
     ARQ_API_KEY = environ["ARQ_API_KEY"]
@@ -17,7 +17,7 @@ if HEROKU:
 
 # NOTE Fill this if you are not deploying on heroku.
 if not HEROKU:
-    API_ID = 14371
+    APP_ID = 14371
     API_HASH = "e46b6c854d2bf58a0"
     ARQ_API_KEY = "Get this from @ARQRobot"
     CHAT_ID = -100546355432

@@ -62,10 +62,6 @@
       "value": "Codex",
       "required": false
     },
-    "API_ID": {
-      "description": "Your APP_ID.",
-      "required": true
-    },
     "SESSION_STRING": {
       "description": "Session String, for music. (Pyrogram)",
       "required": true

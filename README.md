@@ -6,7 +6,7 @@
 </h1>
 <br />
 
-# TGVC [PyTGCalls] [![Mentioned in Awesome Telegram Calls](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/tgcalls/awesome-tgcalls)
+# [usercodex X PyTGCalls] [![Mentioned in Awesome Telegram Calls](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/tgcalls/awesome-tgcalls)
 
 ## <h3 align="left"> About </h3>
 
