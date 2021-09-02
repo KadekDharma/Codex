@@ -186,16 +186,11 @@ async def queuer(_, message):
 `/play Reply On Audio File (Telegram)`"""
 
         async with PLAY_LOCK:
-            if (
-                len(message.command) < 1
-                and not message.reply_to_message
-            ):
+            if len(message.command) < 1 and not message.reply_to_message:
                 return await message.reply_text(usage)
 
             if "call" not in db:
-                return await message.reply_text(
-                    "**Fkg Stupid, Use /joinvc First!**"
-                )
+                return await message.reply_text("**Fkg Stupid, Use /joinvc First!**")
 
             if message.reply_to_message:
                 if message.reply_to_message.audio:
@@ -224,7 +219,9 @@ async def queuer(_, message):
                 db["queue"] = asyncio.Queue()
             if not db["queue"].empty() or db.get("running"):
                 asyncio.sleep(1)
-                await message.reply_text(f"⏭️ __**Added To Queue.__**\n\n**Song Name:** `{song_name}`\n**Requested By:** {message.from_user.first_name}\n**Platform:** `{service}`")
+                await message.reply_text(
+                    f"⏭️ __**Added To Queue.__**\n\n**Song Name:** `{song_name}`\n**Requested By:** {message.from_user.first_name}\n**Platform:** `{service}`"
+                )
             asyncio.sleep(1)
             await db["queue"].put(
                 {
